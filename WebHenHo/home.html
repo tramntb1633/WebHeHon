@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LoveConnect</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fafafa;
+  color: #333;
+}
+
+header {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  color: #ff4d6d;
+  font-size: 1.5rem;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #ff4d6d;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-body h3 {
+  margin-bottom: 5px;
+  color: #ff4d6d;
+}
+
+.card-body p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+
+.btn {
+  background-color: #ff4d6d;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background-color: #e60039;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+@media (max-width: 500px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    margin-top: 10px;
+  }
+
+  nav a {
+    margin-left: 0;
+    margin-right: 15px;
+  }
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LoveConnect</h1>
+    <nav>
+      <a href="#">Trang chủ</a>
+      <a href="messages.html">Tin nhắn</a>
+      <a href="connect-request.html">Thông báo</a>
+      <a href="profile.html">Hồ sơ</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2 style="margin-bottom: 20px;">💖 Gợi ý kết nối cho bạn</h2>
+    <div class="grid">
+      <!-- Profile 1 -->
+      <div class="card">
+        <img src="https://i.pinimg.com/736x/70/0a/0b/700a0bc52434f4863ee7f385157b1cef.jpg" alt="User 1">
+        <div class="card-body">
+          <h3>Thạc Trân</h3>
+          <p>23 tuổi · Blogger</p>
+          <p>Sở thích: Du lịch, đọc sách</p>
+          <button class="btn">Kết nối</button>
+        </div>
+      </div>
+
+  <!-- Profile 2 -->
+  <div class="card">
+    <img src="https://i.pinimg.com/736x/1b/7c/e5/1b7ce58a83da9705668c7cf2d8e257b6.jpg" alt="User 2">
+    <div class="card-body">
+      <h3>Doãn Kì</h3>
+      <p>25 tuổi · Product Manager</p>
+      <p>Sở thích: Âm nhạc, vẽ tranh</p>
+      <button class="btn">Kết nối</button>
+    </div>
+  </div>
+
+  <!-- Thêm các thẻ profile khác tại đây -->
+</div>
+
+  </div>
+
+  <footer>
+    © 2025 LoveConnect. Made with 💘
+  </footer>
+</body>
+</html>

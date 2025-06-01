@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LoveConnect - Tin nhắn</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+    }
+
+    header {
+      height: 50px;
+      background: #ff4d6d;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-weight: bold;
+      font-size: 18px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-back {
+      background: white;
+      color: #ff4d6d;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .header-back:hover {
+      background: #ffe4eb;
+    }
+
+    .app-container {
+      display: flex;
+      height: calc(100vh - 50px);
+    }
+
+    .friends-list {
+      width: 300px;
+      background: white;
+      border-right: 1px solid #ddd;
+      overflow-y: auto;
+    }
+
+    .friend {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      transition: background 0.2s;
+    }
+    .friend:hover {
+      background: #ffe4eb;
+    }
+    .friend.active {
+      background: #ff4d6d;
+      color: white;
+    }
+    .friend img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+      border: 2px solid transparent;
+    }
+    .friend.active img {
+      border-color: white;
+    }
+    .friend-info {
+      flex: 1;
+    }
+    .friend-name {
+      font-weight: 600;
+    }
+    .friend-status {
+      font-size: 0.85rem;
+      color: gray;
+    }
+
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+
+    .chat-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid #ddd;
+      font-weight: 600;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .chat-header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message {
+      max-width: 60%;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 1rem;
+      line-height: 1.3;
+      word-wrap: break-word;
+    }
+    .message.sent {
+      background-color: #ff4d6d;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+    }
+    .message.received {
+      background-color: #e4e6eb;
+      color: #050505;
+      align-self: flex-start;
+      border-bottom-left-radius: 5px;
+    }
+
+    .chat-input {
+      padding: 15px 20px;
+      border-top: 1px solid #ddd;
+      background: white;
+      display: flex;
+      gap: 10px;
+    }
+    .chat-input input[type="text"] {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+    }
+    .chat-input button {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .chat-input button:hover {
+      background-color: #e60039;
+    }
+
+    @media (max-width: 600px) {
+      .friends-list {
+        width: 100px;
+      }
+      .friend-info {
+        display: none;
+      }
+      .chat-header {
+        font-size: 1rem;
+        gap: 10px;
+      }
+      .chat-header img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span>LoveConnect - Tin nhắn</span>
+  <a href="home.html" class="header-back">← Về trang chủ</a>
+</header>
+
+<div class="app-container">
+  <!-- Danh sách bạn bè -->
+  <div class="friends-list" id="friendsList"></div>
+
+  <!-- Khu vực chat -->
+  <div class="chat-area">
+    <div class="chat-header" id="chatHeader">
+      <img src="" alt="Avatar" id="chatAvatar" />
+      <div id="chatName">Chọn bạn bè để trò chuyện</div>
+    </div>
+
+    <div class="messages" id="messages"></div>
+
+    <form class="chat-input" id="chatForm">
+      <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." autocomplete="off" disabled />
+      <button type="submit" disabled>Gửi</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const friends = [
+    {
+      id: 1,
+      name: 'Thạc Trân',
+      avatar: 'https://i.pinimg.com/736x/70/0a/0b/700a0bc52434f4863ee7f385157b1cef.jpg',
+      messages: [
+        { text: 'Chào bạn!', sender: 'received' },
+        { text: 'Chào Trân!', sender: 'sent' },
+      ]
+    },
+    {
+      id: 2,
+      name: 'Doãn Kì',
+      avatar: 'https://i.pinimg.com/736x/1b/7c/e5/1b7ce58a83da9705668c7cf2d8e257b6.jpg',
+      messages: [
+        { text: 'Bạn có khỏe không?', sender: 'received' },
+        { text: 'Mình khỏe, cảm ơn!', sender: 'sent' },
+      ]
+    }
+  ];
+
+  const friendsListEl = document.getElementById('friendsList');
+  const chatNameEl = document.getElementById('chatName');
+  const chatAvatarEl = document.getElementById('chatAvatar');
+  const messagesEl = document.getElementById('messages');
+  const messageInputEl = document.getElementById('messageInput');
+  const chatFormEl = document.getElementById('chatForm');
+  const sendBtn = chatFormEl.querySelector('button');
+
+  let currentFriendId = null;
+
+  function renderFriendsList() {
+    friendsListEl.innerHTML = '';
+    friends.forEach(friend => {
+      const friendEl = document.createElement('div');
+      friendEl.classList.add('friend');
+      if(friend.id === currentFriendId) friendEl.classList.add('active');
+      friendEl.dataset.id = friend.id;
+      friendEl.innerHTML = `
+        <img src="${friend.avatar}" alt="${friend.name}" />
+        <div class="friend-info">
+          <div class="friend-name">${friend.name}</div>
+          <div class="friend-status">Đã kết nối</div>
+        </div>
+      `;
+      friendEl.addEventListener('click', () => {
+        if(currentFriendId !== friend.id) {
+          currentFriendId = friend.id;
+          renderChat();
+          renderFriendsList();
+        }
+      });
+      friendsListEl.appendChild(friendEl);
+    });
+  }
+
+  function renderChat() {
+    const friend = friends.find(f => f.id === currentFriendId);
+    if(!friend) {
+      chatNameEl.textContent = 'Chọn bạn bè để trò chuyện';
+      chatAvatarEl.src = '';
+      messagesEl.innerHTML = '';
+      messageInputEl.disabled = true;
+      sendBtn.disabled = true;
+      return;
+    }
+
+    chatNameEl.textContent = friend.name;
+    chatAvatarEl.src = friend.avatar;
+    messagesEl.innerHTML = '';
+
+    friend.messages.forEach(msg => {
+      const msgEl = document.createElement('div');
+      msgEl.classList.add('message', msg.sender);
+      msgEl.textContent = msg.text;
+      messagesEl.appendChild(msgEl);
+    });
+
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    messageInputEl.disabled = false;
+    sendBtn.disabled = false;
+    messageInputEl.focus();
+  }
+
+  chatFormEl.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!currentFriendId) return;
+    const text = messageInputEl.value.trim();
+    if(text === '') return;
+
+    const friend = friends.find(f => f.id === currentFriendId);
+    friend.messages.push({ text, sender: 'sent' });
+    renderChat();
+    messageInputEl.value = '';
+
+    setTimeout(() => {
+      friend.messages.push({ text: 'Tin nhắn trả lời tự động 😊', sender: 'received' });
+      renderChat();
+    }, 1500);
+  });
+
+  renderFriendsList();
+  renderChat();
+</script>
+
+</body>
+</html>

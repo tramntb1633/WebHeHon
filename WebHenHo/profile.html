@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hồ sơ - LoveConnect</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fafafa;
+      color: #333;
+    }
+
+    header {
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      color: #ff4d6d;
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #ff4d6d;
+    }
+
+    .profile-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .profile-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 4px solid #ff4d6d;
+    }
+
+    .profile-name {
+      font-size: 1.8rem;
+      color: #ff4d6d;
+      margin-bottom: 10px;
+    }
+
+    .profile-info {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .profile-bio {
+      margin-top: 15px;
+      font-style: italic;
+      color: #555;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #e60039;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>LoveConnect</h1>
+  <nav>
+    <a href="home.html">Trang chủ</a>
+    <a href="messages.html">Tin nhắn</a>
+    <a href="connect-request.html">Thông báo</a>
+    <a href="profile.html">Hồ sơ</a>
+  </nav>
+</header>
+
+<div class="profile-container">
+  <img class="profile-avatar" src="https://i.pinimg.com/736x/70/0a/0b/700a0bc52434f4863ee7f385157b1cef.jpg" alt="Avatar" />
+  <h2 class="profile-name">Thạc Trân</h2>
+  <p class="profile-info">Tuổi: 23</p>
+  <p class="profile-info">Nghề nghiệp: Blogger</p>
+  <p class="profile-info">Sở thích: Du lịch, đọc sách, chụp ảnh</p>
+  <p class="profile-bio">"Yêu thương chân thành sẽ luôn tìm được nhau 💗"</p>
+  <button class="btn">Chỉnh sửa hồ sơ</button>
+</div>
+
+<footer>
+  © 2025 LoveConnect. Made with 💘
+</footer>
+
+</body>
+</html>
